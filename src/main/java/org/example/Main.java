@@ -3,6 +3,8 @@ package org.example;
 import org.example.clients.TCPClient;
 import org.example.servers.TCPServer;
 
+import java.io.IOException;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
@@ -12,6 +14,13 @@ public class Main {
         for (int i = 0; i < 3; i++) {
             tcpClients[i] = new TCPClient("localhost", 6868);
         }
+
+//        UDPClient[] udpClients = new UDPClient[3];
+//        new UDPServer(1234);
+//
+//        for (int i = 0; i < 3; i++) {
+//            udpClients[i] = new UDPClient("localhost", 1234);
+//        }
 
     }
 }

@@ -22,6 +22,12 @@ public class TCPClient {
         init();
     }
 
+    public TCPClient() {
+        this.hostname = "127.0.0.1";
+        this.serverPort = 5000;
+        init();
+    }
+
     private void init() {
         try {
             socket = new Socket(hostname, serverPort);

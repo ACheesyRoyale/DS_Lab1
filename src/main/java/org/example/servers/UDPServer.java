@@ -3,30 +3,30 @@ package org.example.servers;
 import java.io.IOException;
 import java.net.*;
 
-public class TCPServer {
+public class UDPServer {
     // port server listens on
     int port;
 
     // socket
-    ServerSocket serverSocket;
-
-    String hostname = "127.0.0.1";
+    DatagramSocket serverSocket;
 
     SocketAddress socketAddress;
 
-    public TCPServer(int port) {
+    String hostname = "localhost";
+
+    public UDPServer() {
+        this.port = 1234;
+        init();
+    }
+
+    public UDPServer(int port) {
         this.port = port;
         init();
     }
 
-    public TCPServer(String hostname, int port) {
+    public UDPServer(String hostname, int port) {
         this.hostname = hostname;
         this.port = port;
-        init();
-    }
-
-    public TCPServer() {
-        this.port = 5000;
         init();
     }
 
@@ -34,8 +34,7 @@ public class TCPServer {
     public void init() {
         try {
             socketAddress = new InetSocketAddress(hostname, port);
-            serverSocket = new ServerSocket();
-            serverSocket.bind(socketAddress);
+            this.serverSocket = new DatagramSocket(socketAddress);
             System.out.println("Server is listening on " + hostname + ", port " + port);
         }
         catch(IOException ex){
@@ -51,9 +50,11 @@ public class TCPServer {
         while (true) {
             try {
                 // accept client-request, if there is one.
-                Socket clientSocket = serverSocket.accept();
+                byte[] buffer = new byte[256];
+                DatagramPacket request = new DatagramPacket(buffer, buffer.length);
+                serverSocket.receive(request);
 
-                new ServerThread(clientSocket).start();
+                new UDPServerThread(request, serverSocket).start();
             }
 
             catch (IOException ex) {
@@ -73,6 +74,5 @@ public class TCPServer {
     public void setPort(int port) {
         this.port = port;
     }
-
 
 }
