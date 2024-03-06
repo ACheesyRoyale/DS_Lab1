@@ -10,27 +10,27 @@ import java.net.UnknownHostException;
 public class TCPClient {
 
     Socket socket;
-    String hostname;
+    String serverHostname;
 
     InputStream input;
 
     int serverPort;
 
-    public TCPClient(String hostname, int serverPort) {
-        this.hostname = hostname;
+    public TCPClient(String server, int serverPort) {
+        this.serverHostname = server;
         this.serverPort = serverPort;
         init();
     }
 
     public TCPClient() {
-        this.hostname = "127.0.0.1";
+        this.serverHostname = "127.0.0.1";
         this.serverPort = 5000;
         init();
     }
 
     private void init() {
         try {
-            socket = new Socket(hostname, serverPort);
+            socket = new Socket(serverHostname, serverPort);
             input = socket.getInputStream();
 
         } catch (UnknownHostException ex) {

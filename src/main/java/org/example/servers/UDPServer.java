@@ -34,6 +34,7 @@ public class UDPServer {
     public void init() {
         try {
             socketAddress = new InetSocketAddress(hostname, port);
+            System.out.println(socketAddress);
             this.serverSocket = new DatagramSocket(socketAddress);
             System.out.println("Server is listening on " + hostname + ", port " + port);
         }
